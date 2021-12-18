@@ -1,22 +1,21 @@
+// ***** Provision Server Here ***** //
 const express = require('express');
 const path = require('path');
-const PORT = process.env.PORT || 3000;
-const public = path.join(__dirname, "../client/dist");
-
 const dbUtils = require('../database/utils');
 
-// initialize an express instance
+// +++++ QoL imports / Global declarations +++++ //
+const PORT = process.env.PORT || 3000;
+const public = path.join(__dirname, "../client/dist");
+const logger = require('cowsay');
+
+// ***** Initialize Express instance ***** //
 const app = express();
 
-// declare middlware here
+// ***** Initialize any middleware ***** //
 app.use(express.json())
 app.use(express.static(public))
 
-// Begin basic routes. Maybe use a router later on?
-app.get('/test', (req, res) => {
-  res.send(`${req.method} recieved at /test endpoint!`)
-})
-
+// ***** Start Bare Routes Here ***** //
 app.get('/pokemon', (req, res) => {
   dbUtils.getAll()
     .then(results => {
@@ -35,7 +34,9 @@ app.post('/pokemon', (req, res) => {
     })
 })
 
-// Finally, tell server to start listening for incoming http to this machine on <PORT>.
+// +++++ Spin Up Server, my many tentacled friend! +++++ ///
 app.listen(PORT, (err) => {
-  console.log(err ? err : `Listening on ${PORT} and serving from ${public}`)
+  console.log(path.join(__dirname, ".."))
+  console.log(logger.think({
+    text: err ? err : `Listening on ${PORT} and serving from ${public.replace(path.join(__dirname, '../'), "")}`, f: 'octopus'}))
 })
