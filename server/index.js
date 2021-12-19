@@ -27,6 +27,7 @@ app.get('/pokemon', (req, res) => {
 })
 
 app.post('/pokemon', (req, res) => {
+  console.log(req.body)
   dbUtils.save(req.body)
     .then(res.status(200).send("Successful save"))
     .catch(err => {
@@ -36,7 +37,6 @@ app.post('/pokemon', (req, res) => {
 
 // +++++ Spin Up Server, my many tentacled friend! +++++ ///
 app.listen(PORT, (err) => {
-  console.log(path.join(__dirname, ".."))
   console.log(logger.think({
     text: err ? err : `Listening on ${PORT} and serving from ${public.replace(path.join(__dirname, '../'), "")}`, f: 'octopus'}))
 })

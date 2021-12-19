@@ -1,3 +1,14 @@
+#app {
+  text-align: center;
+}
+
+.pokeFlex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
 img {
   width: 10rem;
   height: 10rem;
